@@ -7,8 +7,9 @@ module.exports = {
   		opacity: Object.fromEntries(Array.from({ length: 101 }, (_, i) => [i, `${i / 100}`])),
   		borderRadius: {
   			lg: 'var(--radius)',
-  			md: 'calc(var(--radius) - 2px)',
-  			sm: 'calc(var(--radius) - 4px)'
+  			md: 'calc(var(--radius) - 4px)',
+  			sm: 'calc(var(--radius) - 8px)',
+  			xl: 'calc(var(--radius) + 4px)'
   		},
   		colors: {
   			background: 'hsl(var(--background))',
@@ -44,6 +45,9 @@ module.exports = {
   			border: 'hsl(var(--border))',
   			input: 'hsl(var(--input))',
   			ring: 'hsl(var(--ring))',
+  			olive: 'hsl(var(--olive))',
+  			earth: 'hsl(var(--earth))',
+  			sand: 'hsl(var(--sand))',
   			chart: {
   				'1': 'hsl(var(--chart-1))',
   				'2': 'hsl(var(--chart-2))',
@@ -68,23 +72,14 @@ module.exports = {
   			display: ['var(--font-display)'],
   			mono: ['var(--font-mono)']
   		},
+  		boxShadow: {
+  			'soft': '0 2px 12px -2px rgba(60, 80, 40, 0.08), 0 8px 30px -8px rgba(60, 80, 40, 0.12)',
+  			'card': '0 1px 3px rgba(60, 80, 40, 0.06), 0 10px 30px -12px rgba(60, 80, 40, 0.18)',
+  			'lift': '0 12px 40px -12px rgba(60, 80, 40, 0.25)'
+  		},
   		keyframes: {
-  			'accordion-down': {
-  				from: {
-  					height: '0'
-  				},
-  				to: {
-  					height: 'var(--radix-accordion-content-height)'
-  				}
-  			},
-  			'accordion-up': {
-  				from: {
-  					height: 'var(--radix-accordion-content-height)'
-  				},
-  				to: {
-  					height: '0'
-  				}
-  			}
+  			'accordion-down': { from: { height: '0' }, to: { height: 'var(--radix-accordion-content-height)' } },
+  			'accordion-up': { from: { height: 'var(--radix-accordion-content-height)' }, to: { height: '0' } }
   		},
   		animation: {
   			'accordion-down': 'accordion-down 0.2s ease-out',
