@@ -65,6 +65,12 @@
   }
 }
 
+@layer components {
+  .inp {
+    @apply w-full bg-secondary rounded-xl px-3.5 py-2.5 text-sm font-medium outline-none border border-transparent focus:border-primary;
+  }
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
