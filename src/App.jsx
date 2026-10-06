@@ -6,12 +6,31 @@ import PageNotFound from './lib/PageNotFound';
 import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import ScrollToTop from './components/ScrollToTop';
+import { AppProvider } from '@/lib/AppContext';
 // Add page imports here
+import VisitorLayout from '@/components/VisitorLayout';
+import OwnerLayout from '@/components/OwnerLayout';
+import Home from '@/pages/Home';
+import ExploreFarms from '@/pages/ExploreFarms';
+import Experiences from '@/pages/Experiences';
+import AIFinder from '@/pages/AIFinder';
+import FarmDetails from '@/pages/FarmDetails';
+import Booking from '@/pages/Booking';
+import MyJourney from '@/pages/MyJourney';
+import Rewards from '@/pages/Rewards';
+import BusinessModel from '@/pages/BusinessModel';
+import OwnerDashboard from '@/pages/owner/OwnerDashboard';
+import OwnerFarm from '@/pages/owner/OwnerFarm';
+import OwnerExperiences from '@/pages/owner/OwnerExperiences';
+import OwnerBookings from '@/pages/owner/OwnerBookings';
+import OwnerVisitors from '@/pages/owner/OwnerVisitors';
+import OwnerAnalytics from '@/pages/owner/OwnerAnalytics';
+import OwnerInsights from '@/pages/owner/OwnerInsights';
+import AdminDashboard from '@/pages/AdminDashboard';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
 
-  // Show loading spinner while checking app public settings or auth
   if (isLoadingPublicSettings || isLoadingAuth) {
     return (
       <div className="fixed inset-0 flex items-center justify-center">
@@ -20,23 +39,48 @@ const AuthenticatedApp = () => {
     );
   }
 
-  // Handle authentication errors
   if (authError) {
     if (authError.type === 'user_not_registered') {
       return <UserNotRegisteredError />;
     } else if (authError.type === 'auth_required') {
-      // Redirect to login automatically
       navigateToLogin();
       return null;
     }
   }
 
-  // Render the main app
   return (
-    <Routes>
-      {/* Add your page Route elements here */}
-      <Route path="*" element={<PageNotFound />} />
-    </Routes>
+    <AppProvider>
+      <Routes>
+        {/* Visitor */}
+        <Route element={<VisitorLayout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/explore" element={<ExploreFarms />} />
+          <Route path="/experiences" element={<Experiences />} />
+          <Route path="/ai-finder" element={<AIFinder />} />
+          <Route path="/farms/:id" element={<FarmDetails />} />
+          <Route path="/book/:id" element={<Booking />} />
+          <Route path="/journey" element={<MyJourney />} />
+          <Route path="/rewards" element={<Rewards />} />
+          <Route path="/business" element={<BusinessModel />} />
+        </Route>
+
+        {/* Farm owner */}
+        <Route element={<OwnerLayout />}>
+          <Route path="/owner" element={<OwnerDashboard />} />
+          <Route path="/owner/farm" element={<OwnerFarm />} />
+          <Route path="/owner/experiences" element={<OwnerExperiences />} />
+          <Route path="/owner/bookings" element={<OwnerBookings />} />
+          <Route path="/owner/visitors" element={<OwnerVisitors />} />
+          <Route path="/owner/analytics" element={<OwnerAnalytics />} />
+          <Route path="/owner/insights" element={<OwnerInsights />} />
+        </Route>
+
+        {/* Admin */}
+        <Route path="/admin" element={<AdminDashboard />} />
+
+        <Route path="*" element={<PageNotFound />} />
+      </Routes>
+    </AppProvider>
   );
 };
 

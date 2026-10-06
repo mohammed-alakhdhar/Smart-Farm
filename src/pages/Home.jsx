@@ -6,7 +6,7 @@ import { FARMS } from "@/lib/mockData";
 import FarmCard from "@/components/FarmCard";
 import { SectionTitle } from "@/components/ui-bits";
 
-const HERO_IMG = "https://images.unsplash.com/photo-1545048702-79362596cdc9?auto=format&fit=crop&w=1600&q=80";
+const HERO_IMG = "https://images.unsplash.com/photo-1518972559570-7cc1309f3a9e?auto=format&fit=crop&w=1600&q=80";
 
 const interests = ["الطبيعة", "التمور", "الزراعة", "الأنشطة العائلية", "التصوير", "الاسترخاء"];
 

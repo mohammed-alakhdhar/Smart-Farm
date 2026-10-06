@@ -18,9 +18,9 @@ export const FARMS = [
     area: "15 دونم",
     owner: "أبو عبدالله",
     ownerTitle: "مزارع بخبرة 20 عامًا",
-    image: "https://images.unsplash.com/photo-1545048702-79362596cdc9?auto=format&fit=crop&w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1518972559570-7cc1309f3a9e?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      "https://images.unsplash.com/photo-1545048702-79362596cdc9?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1518972559570-7cc1309f3a9e?auto=format&fit=crop&w=1200&q=80",
       "https://images.unsplash.com/photo-1574391884720-bbc049ec09e8?auto=format&fit=crop&w=1200&q=80",
       "https://images.unsplash.com/photo-1601493700631-2b16ec4b47e6?auto=format&fit=crop&w=1200&q=80"
     ],
@@ -112,7 +112,7 @@ export const FARMS = [
     gallery: [
       "https://images.unsplash.com/photo-1574391884720-bbc049ec09e8?auto=format&fit=crop&w=1200&q=80",
       "https://images.unsplash.com/photo-1601493700631-2b16ec4b47e6?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1545048702-79362596cdc9?auto=format&fit=crop&w=1200&q=80"
+      "https://images.unsplash.com/photo-1518972559570-7cc1309f3a9e?auto=format&fit=crop&w=1200&q=80"
     ],
     description: "مزرعة تراثية تجمع بين عراقة النخيل وجمال التصوير، مثالية لمحبي التصوير والتجارب الأصيلة.",
     activities: ["تجربة قطف التمور", "جلسة تصوير", "جولة بين النخيل", "ضيافة ريفية"],
@@ -170,7 +170,7 @@ export const FARMS = [
     image: "https://images.unsplash.com/photo-1601493700631-2b16ec4b47e6?auto=format&fit=crop&w=1200&q=80",
     gallery: [
       "https://images.unsplash.com/photo-1601493700631-2b16ec4b47e6?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1545048702-79362596cdc9?auto=format&fit=crop&w=1200&q=80"
+      "https://images.unsplash.com/photo-1518972559570-7cc1309f3a9e?auto=format&fit=crop&w=1200&q=80"
     ],
     description: "تجربة غروب فريدة بين النخيل مع جلسة ريفية وضيافة، الأكثر طلبًا في أوقات المساء.",
     activities: ["جولة غروب", "جلسة ريفية", "تجربة المنتجات المحلية", "تصوير الغروب"],
