@@ -13,7 +13,7 @@ export default function MyJourney() {
 
   // simulate step increments
   useEffect(() => {
-    if (!simulating || !visit) return;
+    if (!simulating) return;
     const stepsBatch = [1250, 1550, 420, 600];
     let i = 0;
     const timer = setInterval(() => {
@@ -26,7 +26,8 @@ export default function MyJourney() {
       }
     }, 900);
     return () => clearInterval(timer);
-  }, [simulating, visit]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [simulating]);
 
   const handleStart = () => startVisit(farm.id, farm.name);
 
