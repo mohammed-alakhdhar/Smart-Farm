@@ -18,11 +18,11 @@ export const FARMS = [
     area: "15 دونم",
     owner: "أبو عبدالله",
     ownerTitle: "مزارع بخبرة 20 عامًا",
-    image: "https://images.unsplash.com/photo-1518972559570-7cc1309f3a9e?auto=format&fit=crop&w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1495107334309-fcf20504a5ab?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      "https://images.unsplash.com/photo-1518972559570-7cc1309f3a9e?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1574391884720-bbc049ec09e8?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1601493700631-2b16ec4b47e6?auto=format&fit=crop&w=1200&q=80"
+      "https://images.unsplash.com/photo-1495107334309-fcf20504a5ab?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1500076656116-558758c991c1?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1495107334309-fcf20504a5ab?auto=format&fit=crop&w=1200&q=80"
     ],
     description: "مزرعة نخيل تقليدية في قلب المدينة المنورة، تقدم تجربة أصيلة للتعرف على زراعة النخيل وقطف التمور بأنواعها المختلفة، مع جلسة ريفية بين الأشجار.",
     activities: ["جولة بين أشجار النخيل", "التعرف على طرق الزراعة", "تجربة قطف التمور", "التعرف على المنتجات المحلية", "جلسة ريفية"],
@@ -51,7 +51,7 @@ export const FARMS = [
     image: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1200&q=80",
     gallery: [
       "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1625246333195-78d9c38ad475?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=1200&q=80",
       "https://images.unsplash.com/photo-1500076656116-558758c991c1?auto=format&fit=crop&w=1200&q=80"
     ],
     description: "مزرعة عائلية واسعة في وادي العقيق، تجمع بين الزراعة والطبيعة والأنشطة التفاعلية لكل أفراد العائلة، مع مساحات خضراء مفتوحة.",
@@ -78,11 +78,11 @@ export const FARMS = [
     area: "10 دونم",
     owner: "أم سعد",
     ownerTitle: "مزرعة عضوية معتمدة",
-    image: "https://images.unsplash.com/photo-1625246333195-78d9c38ad475?auto=format&fit=crop&w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      "https://images.unsplash.com/photo-1625246333195-78d9c38ad475?auto=format&fit=crop&w=1200&q=80",
       "https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1574391884720-bbc049ec09e8?auto=format&fit=crop&w=1200&q=80"
+      "https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1500076656116-558758c991c1?auto=format&fit=crop&w=1200&q=80"
     ],
     description: "مزرعة عضوية صغيرة تقدم تجربة هادئة بين المزروعات العضوية، مع جلسة ريفية وضيافة من المنتجات الطازجة.",
     activities: ["جولة زراعية", "التعرف على الزراعة العضوية", "جلسة ريفية", "تجربة المنتجات المحلية"],
@@ -108,11 +108,11 @@ export const FARMS = [
     area: "20 دونم",
     owner: "أبو ماجد",
     ownerTitle: "مزرعة نخيل تراثية",
-    image: "https://images.unsplash.com/photo-1574391884720-bbc049ec09e8?auto=format&fit=crop&w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1500076656116-558758c991c1?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      "https://images.unsplash.com/photo-1574391884720-bbc049ec09e8?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1601493700631-2b16ec4b47e6?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1518972559570-7cc1309f3a9e?auto=format&fit=crop&w=1200&q=80"
+      "https://images.unsplash.com/photo-1500076656116-558758c991c1?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1495107334309-fcf20504a5ab?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1495107334309-fcf20504a5ab?auto=format&fit=crop&w=1200&q=80"
     ],
     description: "مزرعة تراثية تجمع بين عراقة النخيل وجمال التصوير، مثالية لمحبي التصوير والتجارب الأصيلة.",
     activities: ["تجربة قطف التمور", "جلسة تصوير", "جولة بين النخيل", "ضيافة ريفية"],
@@ -167,10 +167,10 @@ export const FARMS = [
     area: "18 دونم",
     owner: "أبو فيصل",
     ownerTitle: "مزرعة غروب مميزة",
-    image: "https://images.unsplash.com/photo-1601493700631-2b16ec4b47e6?auto=format&fit=crop&w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1495107334309-fcf20504a5ab?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      "https://images.unsplash.com/photo-1601493700631-2b16ec4b47e6?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1518972559570-7cc1309f3a9e?auto=format&fit=crop&w=1200&q=80"
+      "https://images.unsplash.com/photo-1495107334309-fcf20504a5ab?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1495107334309-fcf20504a5ab?auto=format&fit=crop&w=1200&q=80"
     ],
     description: "تجربة غروب فريدة بين النخيل مع جلسة ريفية وضيافة، الأكثر طلبًا في أوقات المساء.",
     activities: ["جولة غروب", "جلسة ريفية", "تجربة المنتجات المحلية", "تصوير الغروب"],
