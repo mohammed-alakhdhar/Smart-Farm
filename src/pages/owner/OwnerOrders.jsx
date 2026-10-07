@@ -1,10 +1,10 @@
 import React from "react";
-import { Users, FlaskConical, Bug, Check, Clock, MapPin } from "lucide-react";
+import { Users, FlaskConical, Bug, Check, Clock, MapPin, Grape, Package } from "lucide-react";
 import { useApp } from "@/lib/AppContext";
 
 export default function OwnerOrders() {
   const { state } = useApp();
-  const { laborRequests, pesticideResults, weevilAnalyses, serviceSubs } = state;
+  const { laborRequests, pesticideResults, weevilAnalyses, serviceSubs, contaminationCases, exportBatches } = state;
 
   return (
     <div className="space-y-6">
@@ -65,11 +65,44 @@ export default function OwnerOrders() {
         )}
       </Section>
 
+      <Section icon={<Grape className="w-4 h-4" />} title="حالات التمور الملوثة" count={contaminationCases.length}>
+        {contaminationCases.length === 0 ? <Empty msg="لا توجد حالات مسجلة" /> : (
+          <div className="space-y-3">
+            {contaminationCases.map((c) => (
+              <div key={c.id} className="bg-secondary/50 rounded-2xl p-4">
+                <div className="flex items-center justify-between flex-wrap gap-2">
+                  <div className="font-bold">{c.batch}</div>
+                  <span className={`px-2.5 py-1 rounded-full text-xs font-bold ${c.severity.includes("منخفضة") ? "bg-primary/10 text-primary" : c.severity.includes("متوسطة") ? "bg-amber-100 text-amber-700" : "bg-destructive/10 text-destructive"}`}>{c.severity}</span>
+                </div>
+                <div className="text-xs text-muted-foreground mt-1">{c.problem} · {c.status} · {c.date}</div>
+                <div className="text-sm mt-2">{c.action}</div>
+              </div>
+            ))}
+          </div>
+        )}
+      </Section>
+
+      <Section icon={<Package className="w-4 h-4" />} title="دفعات جودة التصدير" count={exportBatches.length}>
+        {exportBatches.length === 0 ? <Empty msg="لا توجد دفعات مسجلة" /> : (
+          <div className="space-y-3">
+            {exportBatches.map((b) => (
+              <div key={b.id} className="bg-secondary/50 rounded-2xl p-4 flex items-center justify-between flex-wrap gap-3">
+                <div>
+                  <div className="font-bold">{b.batch}</div>
+                  <div className="text-xs text-muted-foreground mt-1">النقاء {b.purity}% · الرطوبة {b.moisture}% · مؤشر الجودة {b.score}%</div>
+                </div>
+                <span className={`px-2.5 py-1 rounded-full text-xs font-bold ${b.ready ? "bg-primary/10 text-primary" : "bg-amber-100 text-amber-700"}`}>{b.ready ? "جاهز للتصدير" : "بحاجة تحسين"}</span>
+              </div>
+            ))}
+          </div>
+        )}
+      </Section>
+
       <Section icon={<Check className="w-4 h-4" />} title="الخدمات المشتركة" count={serviceSubs.length}>
         {serviceSubs.length === 0 ? <Empty msg="لم تشترك في أي خدمة بعد" /> : (
           <div className="flex flex-wrap gap-2">
             {serviceSubs.map((id) => {
-              const map = { pesticide: "متبقيات المبيدات", weevil: "سوسة النخيل" };
+              const map = { pesticide: "متبقيات المبيدات", weevil: "سوسة النخيل", contamination: "معالجة التمور الملوثة", export: "جودة التمور والتصدير" };
               return <span key={id} className="px-3.5 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-bold">{map[id]}</span>;
             })}
           </div>

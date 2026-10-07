@@ -18,7 +18,9 @@ function defaults() {
     serviceSubs: [],
     laborRequests: [],
     pesticideResults: [],
-    weevilAnalyses: []
+    weevilAnalyses: [],
+    contaminationCases: [],
+    exportBatches: []
   };
 }
 
@@ -133,6 +135,24 @@ export function AppProvider({ children }) {
     });
   }, []);
 
+  const addContaminationCase = useCallback((c) => {
+    setState((s) => {
+      const entry = { id: "CC" + Date.now(), ...c, createdAt: new Date().toISOString() };
+      const next = { ...s, contaminationCases: [entry, ...s.contaminationCases] };
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(next)); } catch (e) {}
+      return next;
+    });
+  }, []);
+
+  const addExportBatch = useCallback((b) => {
+    setState((s) => {
+      const entry = { id: "EB" + Date.now(), ...b, createdAt: new Date().toISOString() };
+      const next = { ...s, exportBatches: [entry, ...s.exportBatches] };
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(next)); } catch (e) {}
+      return next;
+    });
+  }, []);
+
   const setStepThreshold = useCallback((n) => {
     setState((s) => {
       const next = { ...s, stepThreshold: Math.max(1000, Number(n) || 20000) };
@@ -142,7 +162,7 @@ export function AppProvider({ children }) {
   }, []);
 
   return (
-    <AppContext.Provider value={{ state, addBooking, redeemReward, startVisit, addSteps, completeActivity, endVisit, subscribeService, addLaborRequest, addPesticideResult, addWeevilAnalysis, setStepThreshold }}>
+    <AppContext.Provider value={      { state, addBooking, redeemReward, startVisit, addSteps, completeActivity, endVisit, subscribeService, addLaborRequest, addPesticideResult, addWeevilAnalysis, addContaminationCase, addExportBatch, setStepThreshold }}>
       {children}
     </AppContext.Provider>
   );

@@ -7,10 +7,12 @@ import { useApp } from "@/lib/AppContext";
 
 export default function OwnerDashboard() {
   const { state } = useApp();
-  const { laborRequests, pesticideResults, weevilAnalyses } = state;
+  const { laborRequests, pesticideResults, weevilAnalyses, contaminationCases, exportBatches } = state;
 
   const pesticideStatus = pesticideResults[0];
   const weevilStatus = weevilAnalyses[0];
+  const contaminationStatus = contaminationCases[0];
+  const exportStatus = exportBatches[0];
 
   const alerts = [];
   if (pesticideStatus && !pesticideStatus.level.includes("آمنة")) alerts.push({ icon: "🧪", text: "نتيجة فحص مبيدات تحتاج إلى مراجعة." });
@@ -34,10 +36,12 @@ export default function OwnerDashboard() {
       </div>
 
       {/* Service status */}
-      <div className="grid md:grid-cols-3 gap-4">
+      <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-4">
         <ServiceStatus emoji="🧪" title="متبقيات المبيدات" status={pesticideStatus ? (pesticideStatus.level.includes("آمنة") ? "ضمن الحدود الآمنة" : "تحتاج مراجعة") : "لا توجد نتائج"} ok={pesticideStatus ? pesticideStatus.level.includes("آمنة") : null} />
         <ServiceStatus emoji="🌴" title="صحة النخيل" status={weevilStatus ? (weevilStatus.level === "مرتفعة" ? "مؤشرات تستدعي فحصًا" : "مؤشرات طبيعية") : "لم يتم التحليل"} ok={weevilStatus ? weevilStatus.level !== "مرتفعة" : null} />
         <ServiceStatus emoji="👷" title="طلبات العمالة" status={`${laborRequests.length} طلب نشط`} ok={laborRequests.length ? true : null} />
+        <ServiceStatus emoji="🍇" title="حالات التمور" status={contaminationStatus ? contaminationStatus.severity : "لا توجد حالات"} ok={contaminationStatus ? contaminationStatus.severity.includes("منخفضة") : null} />
+        <ServiceStatus emoji="📦" title="جودة التصدير" status={exportStatus ? (exportStatus.ready ? "جاهز للتصدير" : "بحاجة تحسين") : "لا توجد دفعات"} ok={exportStatus ? exportStatus.ready : null} />
       </div>
 
       {/* Charts */}
@@ -78,6 +82,40 @@ export default function OwnerDashboard() {
               </div>
             ))}
           </div>
+        </div>
+      </div>
+
+      {/* Product quality & batches */}
+      <div className="grid lg:grid-cols-2 gap-4">
+        <div className="bg-card rounded-2xl border border-border shadow-card p-5">
+          <h3 className="font-bold mb-4 flex items-center gap-2">📦 جودة المنتجات والدفعات</h3>
+          {exportBatches.length === 0 ? (
+            <div className="text-sm text-muted-foreground py-4 text-center">لا توجد دفعات مسجلة</div>
+          ) : (
+            <div className="space-y-2.5">
+              {exportBatches.slice(0, 4).map((b) => (
+                <div key={b.id} className="flex items-center justify-between bg-secondary/50 rounded-xl p-3 text-sm">
+                  <div><div className="font-bold">{b.batch}</div><div className="text-xs text-muted-foreground">مؤشر الجودة: {b.score}%</div></div>
+                  <span className={`px-2.5 py-1 rounded-full text-xs font-bold ${b.ready ? "bg-primary/10 text-primary" : "bg-amber-100 text-amber-700"}`}>{b.ready ? "جاهز للتصدير" : "بحاجة تحسين"}</span>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+        <div className="bg-card rounded-2xl border border-border shadow-card p-5">
+          <h3 className="font-bold mb-4 flex items-center gap-2">🍇 حالات التمور</h3>
+          {contaminationCases.length === 0 ? (
+            <div className="text-sm text-muted-foreground py-4 text-center">لا توجد حالات مسجلة</div>
+          ) : (
+            <div className="space-y-2.5">
+              {contaminationCases.slice(0, 4).map((c) => (
+                <div key={c.id} className="flex items-center justify-between bg-secondary/50 rounded-xl p-3 text-sm">
+                  <div><div className="font-bold">{c.batch}</div><div className="text-xs text-muted-foreground">{c.problem} · {c.status}</div></div>
+                  <span className={`px-2.5 py-1 rounded-full text-xs font-bold ${c.severity.includes("منخفضة") ? "bg-primary/10 text-primary" : c.severity.includes("متوسطة") ? "bg-amber-100 text-amber-700" : "bg-destructive/10 text-destructive"}`}>{c.severity}</span>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
 
