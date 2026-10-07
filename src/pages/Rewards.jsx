@@ -50,7 +50,7 @@ export default function Rewards() {
           </div>
           <div className="mt-4 bg-accent/30 rounded-2xl p-4 flex items-center gap-3">
             <div className="text-2xl">👣</div>
-            <div className="text-sm">مثال: <span className="font-bold">4,820 خطوة</span> = <span className="font-bold text-primary">480 نقطة</span> (كل 10 خطوات = نقطة واحدة)</div>
+            <div className="text-sm">مثال: <span className="font-bold">20,000 خطوة</span> = <span className="font-bold text-primary">1,000 نقطة</span> (عند إكمال هدف الزيارة)</div>
           </div>
         </section>
 

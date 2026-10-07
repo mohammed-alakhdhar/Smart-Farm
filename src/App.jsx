@@ -18,12 +18,9 @@ import FarmDetails from '@/pages/FarmDetails';
 import Booking from '@/pages/Booking';
 import MyJourney from '@/pages/MyJourney';
 import Rewards from '@/pages/Rewards';
-import BusinessModel from '@/pages/BusinessModel';
 import OwnerDashboard from '@/pages/owner/OwnerDashboard';
-import OwnerFarm from '@/pages/owner/OwnerFarm';
-import OwnerExperiences from '@/pages/owner/OwnerExperiences';
-import OwnerBookings from '@/pages/owner/OwnerBookings';
-import OwnerVisitors from '@/pages/owner/OwnerVisitors';
+import OwnerServices from '@/pages/owner/OwnerServices';
+import OwnerOrders from '@/pages/owner/OwnerOrders';
 import OwnerAnalytics from '@/pages/owner/OwnerAnalytics';
 import OwnerInsights from '@/pages/owner/OwnerInsights';
 import AdminDashboard from '@/pages/AdminDashboard';
@@ -61,16 +58,13 @@ const AuthenticatedApp = () => {
           <Route path="/book/:id" element={<Booking />} />
           <Route path="/journey" element={<MyJourney />} />
           <Route path="/rewards" element={<Rewards />} />
-          <Route path="/business" element={<BusinessModel />} />
         </Route>
 
         {/* Farm owner */}
         <Route element={<OwnerLayout />}>
           <Route path="/owner" element={<OwnerDashboard />} />
-          <Route path="/owner/farm" element={<OwnerFarm />} />
-          <Route path="/owner/experiences" element={<OwnerExperiences />} />
-          <Route path="/owner/bookings" element={<OwnerBookings />} />
-          <Route path="/owner/visitors" element={<OwnerVisitors />} />
+          <Route path="/owner/services" element={<OwnerServices />} />
+          <Route path="/owner/orders" element={<OwnerOrders />} />
           <Route path="/owner/analytics" element={<OwnerAnalytics />} />
           <Route path="/owner/insights" element={<OwnerInsights />} />
         </Route>

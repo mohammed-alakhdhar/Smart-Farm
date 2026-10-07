@@ -23,10 +23,14 @@ export default function FarmCard({ farm }) {
         <div className="absolute bottom-3 right-3 left-3">
           <h3 className="text-white font-heading font-extrabold text-lg drop-shadow">{farm.name}</h3>
           <div className="flex items-center gap-1 text-white/90 text-xs"><MapPin className="w-3.5 h-3.5" /> {farm.location}</div>
+          <div className="text-white/80 text-[11px] mt-0.5">على بعد {farm.distance}</div>
         </div>
       </div>
       <div className="p-4 flex flex-col gap-3 flex-1">
-        <div className="inline-flex self-start px-2.5 py-1 rounded-full bg-accent/60 text-xs font-semibold text-earth">{farm.experienceType}</div>
+        <div className="flex flex-wrap gap-1.5">
+          <span className="px-2.5 py-1 rounded-full bg-primary/10 text-xs font-semibold text-primary">{farm.farmType}</span>
+          <span className="px-2.5 py-1 rounded-full bg-accent/60 text-xs font-semibold text-earth">{farm.experienceType}</span>
+        </div>
         <p className="text-sm text-muted-foreground line-clamp-2 leading-relaxed">{farm.description}</p>
         <div className="flex items-center gap-3 text-xs text-muted-foreground">
           <span className="flex items-center gap-1"><Clock className="w-3.5 h-3.5" /> {farm.duration}</span>

@@ -19,15 +19,15 @@ export default function PesticideService() {
   const analyze = () => {
     const p = PESTICIDES.find((x) => x.id === pesticide);
     const v = parseFloat(value) || 0;
-    let level, cls, rec, icon;
+    let level, cls, rec;
     if (v <= p.limit) {
-      level = "ضمن الحدود الآمنة"; cls = "bg-primary/10 text-primary"; icon = <ShieldCheck className="w-5 h-5" />;
+      level = "ضمن الحدود الآمنة"; cls = "bg-primary/10 text-primary";
       rec = "النتيجة ضمن الحدود المسموح بها. يوصى بمتابعة الجدول الزراعي الاعتيادي.";
     } else if (v <= p.limit * 2) {
-      level = "مخاطر متوسطة"; cls = "bg-amber-100 text-amber-700"; icon = <AlertTriangle className="w-5 h-5" />;
+      level = "مخاطر متوسطة"; cls = "bg-amber-100 text-amber-700";
       rec = "القيمة أعلى من الحد المسموح. يوصى بإيقاف الرش مؤقتًا وإعادة الفحص بعد أسبوع.";
     } else {
-      level = "مخاطر مرتفعة"; cls = "bg-destructive/10 text-destructive"; icon = <AlertTriangle className="w-5 h-5" />;
+      level = "مخاطر مرتفعة"; cls = "bg-destructive/10 text-destructive";
       rec = "المتبقيات تجاوزت الحد الآمن. يوصى بعدم التسويق وإعادة الفحص المخبري والتواصل مع المختص.";
     }
     const r = { pesticide: p.name, value: v, limit: p.limit, level, recommendation: rec };
@@ -77,7 +77,7 @@ export default function PesticideService() {
         {result && (
           <div className="animate-float-up space-y-3">
             <div className={`flex items-center gap-3 rounded-2xl p-4 ${result.cls}`}>
-              {icon}
+              {result.level.includes("آمنة") ? <ShieldCheck className="w-5 h-5" /> : <AlertTriangle className="w-5 h-5" />}
               <div>
                 <div className="font-bold">{result.level}</div>
                 <div className="text-xs opacity-80">{result.pesticide}: {result.value} (الحد {result.limit})</div>

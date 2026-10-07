@@ -5,9 +5,9 @@ import { useApp } from "@/lib/AppContext";
 
 const navItems = [
   { to: "/", label: "الرئيسية", end: true },
-  { to: "/explore", label: "اكتشف المزارع" },
+  { to: "/explore", label: "المزارع" },
   { to: "/experiences", label: "التجارب" },
-  { to: "/ai-finder", label: "رفيقك الذكي" },
+  { to: "/ai-finder", label: "رفيقي الذكي" },
   { to: "/journey", label: "رحلتي" },
   { to: "/rewards", label: "نقاطي" }
 ];
@@ -53,12 +53,6 @@ export default function VisitorLayout() {
               <span>⭐</span><span>{state.points.toLocaleString("ar-EG")}</span><span className="text-muted-foreground font-medium">نقطة</span>
             </div>
             <button
-              onClick={() => navigate("/owner")}
-              className="hidden md:inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-primary text-primary text-sm font-bold hover:bg-primary hover:text-primary-foreground transition-colors"
-            >
-              كن شريكًا
-            </button>
-            <button
               onClick={() => navigate("/login")}
               className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-primary text-primary-foreground text-sm font-bold hover:opacity-90 transition-opacity"
             >
@@ -88,7 +82,7 @@ export default function VisitorLayout() {
                 </NavLink>
               ))}
               <NavLink to="/owner" onClick={() => setOpen(false)} className="px-4 py-2.5 rounded-xl text-sm font-semibold text-primary hover:bg-secondary">
-                لوحة المزارع
+                حلول المزارع
               </NavLink>
             </nav>
           </div>
@@ -113,8 +107,7 @@ export default function VisitorLayout() {
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li><Link to="/explore" className="hover:text-primary">اكتشف المزارع</Link></li>
               <li><Link to="/ai-finder" className="hover:text-primary">رفيقك الذكي</Link></li>
-              <li><Link to="/business" className="hover:text-primary">نموذج الأعمال</Link></li>
-              <li><Link to="/owner" className="hover:text-primary">كن شريكًا</Link></li>
+              <li><Link to="/owner" className="hover:text-primary">حلول المزارع</Link></li>
             </ul>
           </div>
           <div>

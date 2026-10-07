@@ -33,8 +33,8 @@ export default function ExploreFarms() {
     <div className="bg-background">
       <div className="bg-gradient-to-l from-primary to-olive text-primary-foreground">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
-          <h1 className="font-heading text-3xl sm:text-4xl font-extrabold">اكتشف المزارع</h1>
-          <p className="mt-2 text-primary-foreground/85">تصفّح مزارع المدينة المنورة وفلتر حسب تفضيلاتك</p>
+          <h1 className="font-heading text-3xl sm:text-4xl font-extrabold">اكتشف مزارع المدينة المنورة</h1>
+          <p className="mt-2 text-primary-foreground/85">اختر مزرعتك، عِش التجربة، واحصد نقاطك</p>
           <div className="mt-6 relative">
             <Search className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
             <input

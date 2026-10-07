@@ -1,8 +1,9 @@
 import React from "react";
-import { Sprout, Sparkles, Calendar, Users, Star, MapPin, Award } from "lucide-react";
+import { Sprout, Sparkles, Calendar, Users, Star, MapPin, Award, Footprints } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, AreaChart, Area, PieChart, Pie, Cell, Legend } from "recharts";
 import { ADMIN_STATS, ADMIN_TREND, ADMIN_POPULAR } from "@/lib/mockData";
 import { StatCard } from "@/components/ui-bits";
+import { useApp } from "@/lib/AppContext";
 
 // Stylized farm distribution around Madinah (mock map)
 const FARM_DOTS = [
@@ -19,6 +20,7 @@ const FARM_DOTS = [
 ];
 
 export default function AdminDashboard() {
+  const { state, setStepThreshold } = useApp();
   return (
     <div className="min-h-screen bg-background">
       <div className="bg-gradient-to-l from-primary to-olive text-primary-foreground">
@@ -115,6 +117,21 @@ export default function AdminDashboard() {
                 <Bar dataKey="bookings" fill="hsl(var(--chart-3))" radius={[6, 6, 0, 0]} name="الحجوزات" />
               </BarChart>
             </ResponsiveContainer>
+          </div>
+        </div>
+
+        {/* Settings */}
+        <div className="bg-card rounded-2xl border border-border shadow-card p-5">
+          <h3 className="font-bold mb-4 flex items-center gap-2"><Footprints className="w-4 h-4 text-primary" /> إعدادات النقاط</h3>
+          <div className="flex items-center justify-between flex-wrap gap-4">
+            <div>
+              <div className="font-semibold">هدف الخطوات للزيارة</div>
+              <div className="text-sm text-muted-foreground">عدد الخطوات المطلوبة لمنح الزائر {(state.stepReward || 1000).toLocaleString("ar-EG")} نقطة</div>
+            </div>
+            <div className="flex items-center gap-2">
+              <input id="threshold-input" type="number" min={1000} step={1000} defaultValue={state.stepThreshold || 20000} className="w-40 bg-secondary rounded-xl px-3 py-2.5 text-sm font-bold outline-none border border-transparent focus:border-primary" />
+              <button onClick={() => setStepThreshold(document.getElementById("threshold-input").value)} className="px-5 py-2.5 rounded-xl bg-primary text-primary-foreground text-sm font-bold hover:opacity-90">حفظ</button>
+            </div>
           </div>
         </div>
 
