@@ -4,6 +4,9 @@ import { Star, MapPin, Clock, Users, Calendar, Check, Sparkles, ArrowLeft, Shiel
 import { FARMS } from "@/lib/mockData";
 import { Image } from "@/components/ui/image";
 
+const EMOJI = { "جولة": "🌴", "قطف": "🍇", "زراع": "🌱", "تصوير": "📸", "جلسة": "☕", "ري": "💧", "منتجات": "🥬", "غروب": "🌅" };
+function emojiFor(a) { for (const k in EMOJI) if (a.includes(k)) return EMOJI[k]; return "✨"; }
+
 export default function FarmDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -22,7 +25,6 @@ export default function FarmDetails() {
 
   return (
     <div className="bg-background">
-      {/* Breadcrumb */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-6">
         <button onClick={() => navigate(-1)} className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary">
           <ArrowLeft className="w-4 h-4" /> رجوع
@@ -54,7 +56,6 @@ export default function FarmDetails() {
         <div className="grid lg:grid-cols-[1fr_340px] gap-8">
           {/* Main */}
           <div>
-            {/* Quick info */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
               <Info icon={<Star className="w-4 h-4" />} label="التقييم" value={`${farm.rating} (${farm.reviews})`} />
               <Info icon={<Clock className="w-4 h-4" />} label="المدة" value={farm.duration} />
@@ -73,13 +74,21 @@ export default function FarmDetails() {
               </div>
             </Section>
 
-            <Section title="ماذا ستعيش في هذه التجربة؟">
+            <Section title="ماذا تقدم هذه المزرعة؟">
               <div className="grid sm:grid-cols-2 gap-3">
                 {farm.activities.map((a, i) => (
                   <div key={i} className="flex items-center gap-3 bg-card rounded-2xl border border-border p-4">
-                    <div className="w-9 h-9 rounded-xl bg-primary/10 text-primary grid place-items-center shrink-0"><Check className="w-4 h-4" /></div>
+                    <div className="w-9 h-9 rounded-xl bg-primary/10 grid place-items-center shrink-0 text-lg">{emojiFor(a)}</div>
                     <span className="font-semibold text-sm">{a}</span>
                   </div>
+                ))}
+              </div>
+            </Section>
+
+            <Section title="أوقات الزيارة">
+              <div className="flex flex-wrap gap-2">
+                {farm.times.map((t, i) => (
+                  <span key={i} className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-secondary text-sm font-semibold"><Clock className="w-3.5 h-3.5 text-primary" /> {t}</span>
                 ))}
               </div>
             </Section>
@@ -130,7 +139,7 @@ export default function FarmDetails() {
                 </div>
               </div>
 
-              <Link to={`/book/${farm.id}`} className="block w-full text-center px-6 py-3.5 rounded-2xl bg-primary text-primary-foreground font-bold hover:opacity-90 transition-opacity">احجز التجربة</Link>
+              <Link to={`/book/${farm.id}`} className="block w-full text-center px-6 py-3.5 rounded-2xl bg-primary text-primary-foreground font-bold hover:opacity-90 transition-opacity">احجز زيارتك</Link>
 
               <div className="mt-4 flex items-center gap-2 text-xs text-muted-foreground">
                 <ShieldCheck className="w-4 h-4 text-primary" /> حجز آمن مع إلغاء مجاني قبل 24 ساعة

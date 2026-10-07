@@ -29,7 +29,8 @@ export const FARMS = [
     times: ["8:00 ص", "11:00 ص", "5:00 م"],
     days: ["السبت", "الأحد", "الإثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة"],
     tags: ["الطبيعة", "التمور", "الزراعة", "الأنشطة العائلية"],
-    occupancy: 78
+    occupancy: 78,
+    distance: "8 كم"
   },
   {
     id: "f2",
@@ -59,7 +60,8 @@ export const FARMS = [
     times: ["9:00 ص", "3:00 م", "5:30 م"],
     days: ["الجمعة", "السبت", "الأحد", "الخميس"],
     tags: ["الطبيعة", "الأنشطة العائلية", "الزراعة", "الاسترخاء"],
-    occupancy: 65
+    occupancy: 65,
+    distance: "15 كم"
   },
   {
     id: "f3",
@@ -89,7 +91,8 @@ export const FARMS = [
     times: ["8:30 ص", "4:00 م", "6:00 م"],
     days: ["السبت", "الأحد", "الإثنين", "الجمعة"],
     tags: ["الطبيعة", "الاسترخاء", "الزراعة"],
-    occupancy: 52
+    occupancy: 52,
+    distance: "5 كم"
   },
   {
     id: "f4",
@@ -119,7 +122,8 @@ export const FARMS = [
     times: ["4:00 م", "5:30 م", "6:30 م"],
     days: ["الخميس", "الجمعة", "السبت"],
     tags: ["التصوير", "التمور", "الطبيعة"],
-    occupancy: 60
+    occupancy: 60,
+    distance: "12 كم"
   },
   {
     id: "f5",
@@ -148,7 +152,8 @@ export const FARMS = [
     times: ["7:00 ص", "9:00 ص"],
     days: ["السبت", "الأحد", "الثلاثاء"],
     tags: ["الزراعة", "الطبيعة"],
-    occupancy: 40
+    occupancy: 40,
+    distance: "20 كم"
   },
   {
     id: "f6",
@@ -177,7 +182,8 @@ export const FARMS = [
     times: ["5:00 م", "6:00 م"],
     days: ["الخميس", "الجمعة", "السبت"],
     tags: ["غروب الشمس", "الطبيعة", "الاسترخاء", "التصوير"],
-    occupancy: 85
+    occupancy: 85,
+    distance: "10 كم"
   }
 ];
 
@@ -210,7 +216,7 @@ export const BADGES = [
 export const EARN_RULES = [
   { icon: "🚶", title: "زيارة مزرعة", points: 100 },
   { icon: "✅", title: "إكمال تجربة", points: 150 },
-  { icon: "👣", title: "كل 10 خطوات", points: 1 },
+  { icon: "👣", title: "إكمال 20,000 خطوة", points: 1000 },
   { icon: "🌾", title: "تجربة نشاط زراعي", points: 50 },
   { icon: "🗺️", title: "زيارة مزرعة جديدة", points: 80 }
 ];
@@ -220,6 +226,12 @@ export const OWNER_INSIGHTS = [
   { id: "i2", icon: "🌅", text: "التجارب المسائية تحقق معدل حجز أعلى بنسبة 38%.", tone: "info" },
   { id: "i3", icon: "🌴", text: "تجارب قطف التمور من أكثر التجارب طلبًا هذا الموسم.", tone: "info" },
   { id: "i4", icon: "💡", text: "ننصح بزيادة الطاقة الاستيعابية يوم الجمعة لمضاعفة الحجوزات.", tone: "tip" }
+];
+
+export const OWNER_SERVICE_INSIGHTS = [
+  { icon: "🧪", text: "تم رصد نتيجة فحص تحتاج إلى مراجعة." },
+  { icon: "🌴", text: "صورة النخلة المرفوعة تظهر مؤشرات تستدعي فحصًا ميدانيًا." },
+  { icon: "👷", text: "من المتوقع ارتفاع احتياج العمالة نهاية الأسبوع." }
 ];
 
 export const OWNER_KPI = {

@@ -1,24 +1,43 @@
 import React from "react";
-import { Calendar, Users, Wallet, Star, Gauge, ArrowUpLeft } from "lucide-react";
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, PieChart, Pie, Cell, AreaChart, Area } from "recharts";
-import { OWNER_KPI, OWNER_BOOKINGS_CHART, OWNER_TOP_EXPERIENCES, OWNER_PEAK_HOURS } from "@/lib/mockData";
+import { Calendar, Users, Wallet, Star, Gauge, ArrowUpLeft, Sparkles, Bell } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, PieChart, Pie, Cell } from "recharts";
+import { OWNER_KPI, OWNER_BOOKINGS_CHART, OWNER_TOP_EXPERIENCES, OWNER_INSIGHTS } from "@/lib/mockData";
 import { StatCard } from "@/components/ui-bits";
+import { useApp } from "@/lib/AppContext";
 
 export default function OwnerDashboard() {
+  const { state } = useApp();
+  const { laborRequests, pesticideResults, weevilAnalyses } = state;
+
+  const pesticideStatus = pesticideResults[0];
+  const weevilStatus = weevilAnalyses[0];
+
+  const alerts = [];
+  if (pesticideStatus && !pesticideStatus.level.includes("آمنة")) alerts.push({ icon: "🧪", text: "نتيجة فحص مبيدات تحتاج إلى مراجعة." });
+  if (weevilStatus && weevilStatus.level === "مرتفعة") alerts.push({ icon: "🌴", text: "تحليل صورة النخلة يظهر مؤشرات تستدعي فحصًا ميدانيًا." });
+  if (laborRequests.length) alerts.push({ icon: "👷", text: `لديك ${laborRequests.length} طلب عمالة نشط.` });
+  if (alerts.length === 0) alerts.push({ icon: "✅", text: "كل الخدمات تعمل بسلاسة، لا توجد تنبيهات." });
+
   return (
     <div className="space-y-6">
       <div>
         <h1 className="font-heading text-2xl font-extrabold">مرحبًا، أبو عبدالله 👋</h1>
-        <p className="text-muted-foreground text-sm">إليك نظرة عامة على أداء مزرعتك هذا الشهر</p>
+        <p className="text-muted-foreground text-sm">نظرة عامة على مزرعتك وخدماتك المشتركة</p>
       </div>
 
-      {/* KPIs */}
       <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
-        <StatCard icon={<Calendar className="w-5 h-5" />} label="عدد الحجوزات" value={OWNER_KPI.bookings} tone="primary" />
+        <StatCard icon={<Calendar className="w-5 h-5" />} label="الحجوزات / الطلبات" value={OWNER_KPI.bookings + laborRequests.length} tone="primary" />
         <StatCard icon={<Users className="w-5 h-5" />} label="الزوار" value={OWNER_KPI.visitors} tone="olive" />
         <StatCard icon={<Wallet className="w-5 h-5" />} label="الإيرادات" value={OWNER_KPI.revenue.toLocaleString("ar-EG")} suffix="ريال" tone="earth" />
         <StatCard icon={<Star className="w-5 h-5" />} label="التقييم" value={OWNER_KPI.rating} tone="amber" />
         <StatCard icon={<Gauge className="w-5 h-5" />} label="معدل الإشغال" value={OWNER_KPI.occupancy} suffix="%" tone="primary" />
+      </div>
+
+      {/* Service status */}
+      <div className="grid md:grid-cols-3 gap-4">
+        <ServiceStatus emoji="🧪" title="متبقيات المبيدات" status={pesticideStatus ? (pesticideStatus.level.includes("آمنة") ? "ضمن الحدود الآمنة" : "تحتاج مراجعة") : "لا توجد نتائج"} ok={pesticideStatus ? pesticideStatus.level.includes("آمنة") : null} />
+        <ServiceStatus emoji="🌴" title="صحة النخيل" status={weevilStatus ? (weevilStatus.level === "مرتفعة" ? "مؤشرات تستدعي فحصًا" : "مؤشرات طبيعية") : "لم يتم التحليل"} ok={weevilStatus ? weevilStatus.level !== "مرتفعة" : null} />
+        <ServiceStatus emoji="👷" title="طلبات العمالة" status={`${laborRequests.length} طلب نشط`} ok={laborRequests.length ? true : null} />
       </div>
 
       {/* Charts */}
@@ -62,23 +81,50 @@ export default function OwnerDashboard() {
         </div>
       </div>
 
-      <div className="bg-card rounded-2xl border border-border shadow-card p-5">
-        <h3 className="font-bold mb-4">أوقات الذروة</h3>
-        <ResponsiveContainer width="100%" height={200}>
-          <AreaChart data={OWNER_PEAK_HOURS} margin={{ top: 5, right: 5, left: -20, bottom: 0 }}>
-            <defs>
-              <linearGradient id="peak" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.4} />
-                <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0} />
-              </linearGradient>
-            </defs>
-            <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
-            <XAxis dataKey="hour" tick={{ fontSize: 12, fontFamily: "Tajawal" }} stroke="hsl(var(--muted-foreground))" />
-            <YAxis tick={{ fontSize: 11 }} stroke="hsl(var(--muted-foreground))" />
-            <Tooltip contentStyle={{ borderRadius: 12, border: "1px solid hsl(var(--border))", fontFamily: "Tajawal" }} />
-            <Area type="monotone" dataKey="value" stroke="hsl(var(--primary))" strokeWidth={2} fill="url(#peak)" name="الحجوزات" />
-          </AreaChart>
-        </ResponsiveContainer>
+      {/* Alerts + AI insights */}
+      <div className="grid lg:grid-cols-2 gap-4">
+        <div className="bg-card rounded-2xl border border-border shadow-card p-5">
+          <h3 className="font-bold mb-4 flex items-center gap-2"><Bell className="w-4 h-4 text-primary" /> التنبيهات</h3>
+          <div className="space-y-2.5">
+            {alerts.map((a, i) => (
+              <div key={i} className="flex items-center gap-3 bg-secondary/50 rounded-xl p-3 text-sm">
+                <span className="text-xl">{a.icon}</span>
+                <span>{a.text}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="bg-card rounded-2xl border border-border shadow-card p-5">
+          <h3 className="font-bold mb-4 flex items-center gap-2"><Sparkles className="w-4 h-4 text-primary" /> 🤖 رؤى الذكاء الاصطناعي</h3>
+          <div className="space-y-2.5">
+            {OWNER_INSIGHTS.map((ins) => (
+              <div key={ins.id} className="flex items-start gap-3 bg-gradient-to-l from-primary/5 to-transparent rounded-xl p-3 text-sm">
+                <span className="text-xl">{ins.icon}</span>
+                <span className="leading-relaxed">{ins.text}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ServiceStatus({ emoji, title, status, ok }) {
+  const dot = ok === null ? "bg-muted-foreground" : ok ? "bg-primary" : "bg-amber-500";
+  return (
+    <div className="bg-card rounded-2xl border border-border shadow-card p-5">
+      <div className="flex items-center gap-3 mb-2">
+        <div className="w-11 h-11 rounded-2xl bg-primary/10 grid place-items-center text-2xl">{emoji}</div>
+        <div>
+          <div className="font-bold text-sm">{title}</div>
+          <div className="text-xs text-muted-foreground">حالة الخدمة</div>
+        </div>
+      </div>
+      <div className="flex items-center gap-2 mt-3">
+        <span className={`w-2.5 h-2.5 rounded-full ${dot}`} />
+        <span className="text-sm font-semibold">{status}</span>
       </div>
     </div>
   );

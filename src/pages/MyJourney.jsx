@@ -8,13 +8,14 @@ export default function MyJourney() {
   const { state, startVisit, addSteps, completeActivity, endVisit } = useApp();
   const [simulating, setSimulating] = useState(false);
   const visit = state.activeVisit;
+  const threshold = state.stepThreshold || 20000;
+  const reward = state.stepReward || 1000;
 
   const farm = visit ? FARMS.find((f) => f.id === visit.farmId) : FARMS[0];
 
-  // simulate step increments
   useEffect(() => {
     if (!simulating) return;
-    const stepsBatch = [1250, 1550, 420, 600];
+    const stepsBatch = [6500, 6800, 6700];
     let i = 0;
     const timer = setInterval(() => {
       if (i < stepsBatch.length) {
@@ -29,9 +30,9 @@ export default function MyJourney() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [simulating]);
 
-  const handleStart = () => startVisit(farm.id, farm.name);
-
   const visitDuration = visit ? "1 ساعة و42 دقيقة" : "—";
+  const remaining = Math.max(0, threshold - (visit?.steps || 0));
+  const reached = visit?.rewarded || (visit?.steps || 0) >= threshold;
 
   return (
     <div className="bg-background">
@@ -39,7 +40,7 @@ export default function MyJourney() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 py-12">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/15 text-sm font-semibold mb-3"><Footprints className="w-4 h-4" /> رحلتي</div>
           <h1 className="font-heading text-3xl sm:text-4xl font-extrabold">رحلتك الزراعية</h1>
-          <p className="mt-2 text-primary-foreground/85">تتبع زيارتك، احسب خطواتك، واجمع النقاط</p>
+          <p className="mt-2 text-primary-foreground/85">تتبع زيارتك، احسب خطواتك، واجمع نقاطك</p>
         </div>
       </div>
 
@@ -51,21 +52,17 @@ export default function MyJourney() {
             <p className="text-muted-foreground text-sm mt-1 max-w-md mx-auto">اختر المزرعة التي ستبدأ زيارتها لتتبع خطواتك واحتساب نقاطك تلقائيًا.</p>
             <div className="mt-6 max-w-sm mx-auto">
               <label className="block text-xs text-muted-foreground mb-1.5">اختر المزرعة</label>
-              <select id="journey-farm" defaultValue={FARMS[0].id} className="w-full bg-secondary rounded-xl px-4 py-3 text-sm font-semibold outline-none border border-transparent focus:border-primary">
+              <select id="journey-farm" defaultValue={FARMS[0].id} className="inp">
                 {FARMS.map((f) => <option key={f.id} value={f.id}>{f.name}</option>)}
               </select>
-              <button
-                onClick={() => { const sel = document.getElementById("journey-farm").value; const f = FARMS.find((x) => x.id === sel); startVisit(f.id, f.name); }}
-                className="mt-4 w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-primary text-primary-foreground font-bold hover:opacity-90"
-              >
+              <button onClick={() => { const sel = document.getElementById("journey-farm").value; const f = FARMS.find((x) => x.id === sel); startVisit(f.id, f.name); }} className="mt-4 w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-primary text-primary-foreground font-bold hover:opacity-90">
                 <Play className="w-5 h-5" /> بدء الزيارة
               </button>
             </div>
-            <div className="mt-5 flex items-center justify-center gap-2 text-xs text-muted-foreground"><ShieldCheck className="w-4 h-4 text-primary" /> يتم احتساب النقاط بعد التحقق من زيارة المزرعة.</div>
+            <div className="mt-5 text-center text-xs text-muted-foreground">الهدف: {threshold.toLocaleString("ar-EG")} خطوة = {reward.toLocaleString("ar-EG")} نقطة</div>
           </div>
         ) : (
           <>
-            {/* Today's journey */}
             <div className="bg-card rounded-3xl border border-border shadow-card overflow-hidden mb-6">
               <div className="relative h-40">
                 <img src={farm.image} alt="" className="w-full h-full object-cover" />
@@ -80,20 +77,27 @@ export default function MyJourney() {
                 </div>
               </div>
               <div className="p-6">
-                {/* Step counter */}
                 <div className="mb-6">
                   <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center gap-2"><Footprints className="w-5 h-5 text-primary" /><span className="font-bold">عدد الخطوات</span></div>
                     <div className="font-heading font-extrabold text-2xl">{visit.steps.toLocaleString("ar-EG")} <span className="text-sm text-muted-foreground font-medium">خطوة</span></div>
                   </div>
                   <div className="h-3 rounded-full bg-secondary overflow-hidden">
-                    <div className="h-full rounded-full bg-gradient-to-l from-primary to-olive transition-all duration-500" style={{ width: `${Math.min(100, (visit.steps / 5000) * 100)}%` }} />
+                    <div className="h-full rounded-full bg-gradient-to-l from-primary to-olive transition-all duration-500" style={{ width: `${Math.min(100, (visit.steps / threshold) * 100)}%` }} />
                   </div>
                   <div className="flex items-center justify-between text-xs text-muted-foreground mt-1.5">
-                    <span>الهدف: 5,000 خطوة</span>
-                    <span className="flex items-center gap-1 text-primary font-bold"><Star className="w-3.5 h-3.5" /> +{visit.points} نقطة</span>
+                    <span>الهدف: {threshold.toLocaleString("ar-EG")} خطوة</span>
+                    {reached ? <span className="flex items-center gap-1 text-primary font-bold"><Star className="w-3.5 h-3.5" /> +{reward.toLocaleString("ar-EG")} نقطة</span> : <span>تبقى لك {remaining.toLocaleString("ar-EG")} خطوة للحصول على نقاطك</span>}
                   </div>
                 </div>
+
+                {reached && (
+                  <div className="mb-6 animate-float-up bg-gradient-to-l from-primary to-olive text-primary-foreground rounded-2xl p-5 text-center">
+                    <div className="text-4xl mb-1">🎉</div>
+                    <div className="font-heading font-extrabold text-xl">مبروك! أكملت {threshold.toLocaleString("ar-EG")} خطوة!</div>
+                    <div className="text-sm opacity-90 mt-1">تمت إضافة {reward.toLocaleString("ar-EG")} نقطة إلى رصيدك.</div>
+                  </div>
+                )}
 
                 <div className="grid grid-cols-3 gap-3 mb-6">
                   <MiniStat icon={<Clock className="w-4 h-4" />} label="مدة الزيارة" value="1:42" />
@@ -112,11 +116,10 @@ export default function MyJourney() {
                     <Square className="w-4 h-4" /> إنهاء الزيارة (+100)
                   </button>
                 </div>
-                <div className="mt-4 flex items-center gap-2 text-xs text-muted-foreground"><ShieldCheck className="w-4 h-4 text-primary" /> يتم احتساب النقاط بعد التحقق من زيارة المزرعة.</div>
+                <div className="mt-4 flex items-center gap-2 text-xs text-muted-foreground"><ShieldCheck className="w-4 h-4 text-primary" /> لا تُمنح نقاط الخطوات إلا بعد الوصول إلى {threshold.toLocaleString("ar-EG")} خطوة.</div>
               </div>
             </div>
 
-            {/* Achievements */}
             <div className="bg-card rounded-3xl border border-border shadow-card p-6">
               <h3 className="font-heading font-bold text-lg mb-4 flex items-center gap-2"><Award className="w-5 h-5 text-primary" /> الإنجازات</h3>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
@@ -124,7 +127,7 @@ export default function MyJourney() {
                   { icon: "🗺️", t: "مستكشف المزارع", e: true },
                   { icon: "🌿", t: "محب الطبيعة", e: true },
                   { icon: "🌱", t: "تجربة زراعية أولى", e: true },
-                  { icon: "⭐", t: "مستكشف محترف", e: visit.steps >= 5000 }
+                  { icon: "⭐", t: "مستكشف محترف", e: reached }
                 ].map((a, i) => (
                   <div key={i} className={`rounded-2xl p-4 text-center border-2 ${a.e ? "border-primary bg-primary/5" : "border-border opacity-50"}`}>
                     <div className="text-3xl mb-1">{a.icon}</div>
@@ -137,7 +140,6 @@ export default function MyJourney() {
           </>
         )}
 
-        {/* Points summary */}
         <div className="mt-6 bg-gradient-to-l from-primary to-olive text-primary-foreground rounded-3xl p-6 flex items-center justify-between flex-wrap gap-4">
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 rounded-2xl bg-white/20 grid place-items-center"><Star className="w-6 h-6" /></div>

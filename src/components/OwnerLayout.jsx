@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
-import { Sprout, LayoutDashboard, Plus, Calendar, Users, BarChart3, Sparkles, Menu, X, ArrowLeft } from "lucide-react";
+import { Sprout, LayoutDashboard, Wrench, ClipboardList, BarChart3, Sparkles, Menu, X, ArrowLeft } from "lucide-react";
 
 const navItems = [
   { to: "/owner", label: "لوحة التحكم", icon: LayoutDashboard, end: true },
-  { to: "/owner/farm", label: "مزرعتي", icon: Sprout },
-  { to: "/owner/experiences", label: "التجارب", icon: Plus },
-  { to: "/owner/bookings", label: "الحجوزات", icon: Calendar },
-  { to: "/owner/visitors", label: "الزوار", icon: Users },
+  { to: "/owner/services", label: "الخدمات", icon: Wrench },
+  { to: "/owner/orders", label: "طلبات الخدمات", icon: ClipboardList },
   { to: "/owner/analytics", label: "التحليلات", icon: BarChart3 },
   { to: "/owner/insights", label: "رؤى الذكاء الاصطناعي", icon: Sparkles }
 ];
@@ -24,7 +22,7 @@ export default function OwnerLayout() {
           <Link to="/owner" className="flex items-center gap-2.5">
             <div className="w-9 h-9 rounded-xl bg-sidebar-primary text-sidebar-primary-foreground grid place-items-center"><Sprout className="w-5 h-5" /></div>
             <div className="leading-tight">
-              <div className="font-heading font-extrabold text-sm">لوحة المزارع</div>
+              <div className="font-heading font-extrabold text-sm">حلول المزرعة الذكية</div>
               <div className="text-[11px] text-muted-foreground">المزرعة الذكية</div>
             </div>
           </Link>
@@ -50,7 +48,7 @@ export default function OwnerLayout() {
         </nav>
         <div className="p-3 mt-auto">
           <button onClick={() => navigate("/")} className="w-full flex items-center gap-2 px-3.5 py-2.5 rounded-xl text-sm font-semibold text-muted-foreground hover:bg-sidebar-accent">
-            <ArrowLeft className="w-4 h-4" /> العودة للزوار
+            <ArrowLeft className="w-4 h-4" /> العودة للرئيسية
           </button>
         </div>
       </aside>
@@ -62,7 +60,7 @@ export default function OwnerLayout() {
         <header className="h-16 sticky top-0 z-20 glass border-b border-border/60 flex items-center justify-between px-4 sm:px-6">
           <button onClick={() => setOpen(true)} className="lg:hidden p-2 rounded-lg hover:bg-secondary"><Menu className="w-5 h-5" /></button>
           <div className="hidden lg:block">
-            <h1 className="font-heading font-bold text-lg">لوحة تحكم المزارع</h1>
+            <h1 className="font-heading font-bold text-lg">حلول المزرعة الذكية</h1>
           </div>
           <div className="flex items-center gap-3">
             <div className="text-sm text-muted-foreground">مرحبًا، أبو عبدالله 👋</div>

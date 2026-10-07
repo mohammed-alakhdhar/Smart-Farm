@@ -2,32 +2,36 @@ import React, { createContext, useContext, useState, useCallback } from "react";
 
 const AppContext = createContext(null);
 
-const STORAGE_KEY = "smart_farm_state_v1";
+const STORAGE_KEY = "smart_farm_state_v2";
 
-function loadState() {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) return JSON.parse(raw);
-  } catch (e) {}
-  return null;
-}
-
-export function AppProvider({ children }) {
-  const initial = loadState() || {
+function defaults() {
+  return {
     points: 1250,
     steps: 0,
+    stepThreshold: 20000,
+    stepReward: 1000,
     badges: ["b1", "b2", "b3"],
     bookings: [],
     visits: [],
     redeemed: [],
-    activeVisit: null
+    activeVisit: null,
+    serviceSubs: [],
+    laborRequests: [],
+    pesticideResults: [],
+    weevilAnalyses: []
   };
-  const [state, setState] = useState(initial);
+}
 
-  const persist = useCallback((next) => {
-    setState(next);
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(next)); } catch (e) {}
-  }, []);
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) return { ...defaults(), ...JSON.parse(raw) };
+  } catch (e) {}
+  return defaults();
+}
+
+export function AppProvider({ children }) {
+  const [state, setState] = useState(loadState);
 
   const addBooking = useCallback((booking) => {
     setState((s) => {
@@ -50,7 +54,7 @@ export function AppProvider({ children }) {
   }, []);
 
   const startVisit = useCallback((farmId, farmName) => {
-    const visit = { id: "v" + Date.now(), farmId, farmName, startedAt: new Date().toISOString(), steps: 0, points: 0, activitiesDone: 0 };
+    const visit = { id: "v" + Date.now(), farmId, farmName, startedAt: new Date().toISOString(), steps: 0, rewarded: false, activitiesDone: 0 };
     setState((s) => {
       const next = { ...s, activeVisit: visit };
       try { localStorage.setItem(STORAGE_KEY, JSON.stringify(next)); } catch (e) {}
@@ -63,9 +67,11 @@ export function AppProvider({ children }) {
     setState((s) => {
       if (!s.activeVisit) return s;
       const totalSteps = s.activeVisit.steps + newSteps;
-      const earnedPoints = Math.floor(totalSteps / 10) - Math.floor(s.activeVisit.steps / 10);
-      const visit = { ...s.activeVisit, steps: totalSteps, points: Math.floor(totalSteps / 10) };
-      const next = { ...s, activeVisit: visit, steps: s.steps + newSteps, points: s.points + earnedPoints };
+      const threshold = s.stepThreshold || 20000;
+      const crossed = !s.activeVisit.rewarded && s.activeVisit.steps < threshold && totalSteps >= threshold;
+      const visit = { ...s.activeVisit, steps: totalSteps, rewarded: s.activeVisit.rewarded || crossed };
+      const pointsGain = crossed ? (s.stepReward || 1000) : 0;
+      const next = { ...s, activeVisit: visit, steps: s.steps + newSteps, points: s.points + pointsGain };
       try { localStorage.setItem(STORAGE_KEY, JSON.stringify(next)); } catch (e) {}
       return next;
     });
@@ -91,8 +97,52 @@ export function AppProvider({ children }) {
     });
   }, []);
 
+  const subscribeService = useCallback((serviceId) => {
+    setState((s) => {
+      if (s.serviceSubs.includes(serviceId)) return s;
+      const next = { ...s, serviceSubs: [...s.serviceSubs, serviceId] };
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(next)); } catch (e) {}
+      return next;
+    });
+  }, []);
+
+  const addLaborRequest = useCallback((req) => {
+    setState((s) => {
+      const entry = { id: "LR" + Date.now(), status: "available", ...req, createdAt: new Date().toISOString() };
+      const next = { ...s, laborRequests: [entry, ...s.laborRequests] };
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(next)); } catch (e) {}
+      return next;
+    });
+  }, []);
+
+  const addPesticideResult = useCallback((r) => {
+    setState((s) => {
+      const entry = { id: "PR" + Date.now(), ...r, createdAt: new Date().toISOString() };
+      const next = { ...s, pesticideResults: [entry, ...s.pesticideResults] };
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(next)); } catch (e) {}
+      return next;
+    });
+  }, []);
+
+  const addWeevilAnalysis = useCallback((a) => {
+    setState((s) => {
+      const entry = { id: "WA" + Date.now(), ...a, createdAt: new Date().toISOString() };
+      const next = { ...s, weevilAnalyses: [entry, ...s.weevilAnalyses] };
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(next)); } catch (e) {}
+      return next;
+    });
+  }, []);
+
+  const setStepThreshold = useCallback((n) => {
+    setState((s) => {
+      const next = { ...s, stepThreshold: Math.max(1000, Number(n) || 20000) };
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(next)); } catch (e) {}
+      return next;
+    });
+  }, []);
+
   return (
-    <AppContext.Provider value={{ state, addBooking, redeemReward, startVisit, addSteps, completeActivity, endVisit }}>
+    <AppContext.Provider value={{ state, addBooking, redeemReward, startVisit, addSteps, completeActivity, endVisit, subscribeService, addLaborRequest, addPesticideResult, addWeevilAnalysis, setStepThreshold }}>
       {children}
     </AppContext.Provider>
   );
