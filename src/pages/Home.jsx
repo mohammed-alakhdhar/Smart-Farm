@@ -5,7 +5,7 @@ import { Image } from "@/components/ui/image";
 import { useAuth } from "@/lib/AuthContext";
 
 const HERO_IMG = "https://images.unsplash.com/photo-1500076656116-558758c991c1?auto=format&fit=crop&w=1600&q=80";
-const SERVICE_IMG = "https://images.unsplash.com/photo-1604152135912-04a0cfe9a1c2?auto=format&fit=crop&w=1200&q=80";
+const SERVICE_IMG = "https://media.base44.com/images/public/6ac50188206fc8dd1205beec/c71a4c320_generated_image.png";
 
 export default function Home() {
   const navigate = useNavigate();
