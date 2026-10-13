@@ -1,0 +1,178 @@
+{
+  "name": "ProcessingRequest",
+  "type": "object",
+  "properties": {
+    "request_number": {
+      "type": "string",
+      "description": "\u0631\u0642\u0645 \u0637\u0644\u0628 \u0641\u0631\u064a\u062f"
+    },
+    "client_type": {
+      "type": "string",
+      "enum": [
+        "\u0645\u0632\u0631\u0639\u0629",
+        "\u0645\u0635\u0646\u0639"
+      ],
+      "description": "\u0646\u0648\u0639 \u0627\u0644\u0639\u0645\u064a\u0644"
+    },
+    "facility_name": {
+      "type": "string",
+      "description": "\u0627\u0633\u0645 \u0627\u0644\u0645\u0632\u0631\u0639\u0629 \u0623\u0648 \u0627\u0644\u0645\u0635\u0646\u0639"
+    },
+    "applicant_name": {
+      "type": "string",
+      "description": "\u0627\u0633\u0645 \u0645\u0642\u062f\u0645 \u0627\u0644\u0637\u0644\u0628"
+    },
+    "phone": {
+      "type": "string",
+      "description": "\u0631\u0642\u0645 \u0627\u0644\u062a\u0648\u0627\u0635\u0644"
+    },
+    "city": {
+      "type": "string",
+      "description": "\u0627\u0644\u0645\u062f\u064a\u0646\u0629"
+    },
+    "region": {
+      "type": "string",
+      "description": "\u0627\u0644\u0645\u0646\u0637\u0642\u0629"
+    },
+    "date_variety": {
+      "type": "string",
+      "description": "\u0646\u0648\u0639 \u0627\u0644\u062a\u0645\u0631"
+    },
+    "quantity": {
+      "type": "number",
+      "description": "\u0627\u0644\u0643\u0645\u064a\u0629"
+    },
+    "quantity_unit": {
+      "type": "string",
+      "enum": [
+        "\u0637\u0646",
+        "\u0643\u064a\u0644\u0648\u063a\u0631\u0627\u0645"
+      ],
+      "default": "\u0637\u0646"
+    },
+    "total_weight": {
+      "type": "number",
+      "description": "\u0627\u0644\u0648\u0632\u0646 \u0627\u0644\u0625\u062c\u0645\u0627\u0644\u064a \u0627\u0644\u0645\u0637\u0644\u0648\u0628 \u0645\u0639\u0627\u0644\u062c\u062a\u0647"
+    },
+    "batch_number": {
+      "type": "string",
+      "description": "\u0631\u0642\u0645 \u0627\u0644\u062a\u0634\u063a\u064a\u0644\u0629 \u0623\u0648 \u0627\u0644\u062f\u0641\u0639\u0629"
+    },
+    "harvest_date": {
+      "type": "string",
+      "format": "date",
+      "description": "\u062a\u0627\u0631\u064a\u062e \u0627\u0644\u062d\u0635\u0627\u062f \u0623\u0648 \u0627\u0644\u0625\u0646\u062a\u0627\u062c"
+    },
+    "current_status_text": {
+      "type": "string",
+      "description": "\u062d\u0627\u0644\u0629 \u0627\u0644\u062a\u0645\u0648\u0631 \u0627\u0644\u062d\u0627\u0644\u064a\u0629"
+    },
+    "notes": {
+      "type": "string",
+      "description": "\u0645\u0644\u0627\u062d\u0638\u0627\u062a \u0625\u0636\u0627\u0641\u064a\u0629"
+    },
+    "consent": {
+      "type": "boolean",
+      "description": "\u0625\u0642\u0631\u0627\u0631 \u0628\u0635\u062d\u0629 \u0627\u0644\u0628\u064a\u0627\u0646\u0627\u062a"
+    },
+    "lab_name": {
+      "type": "string",
+      "description": "\u0627\u0633\u0645 \u0627\u0644\u0645\u062e\u062a\u0628\u0631"
+    },
+    "analysis_date": {
+      "type": "string",
+      "format": "date",
+      "description": "\u062a\u0627\u0631\u064a\u062e \u0627\u0644\u062a\u062d\u0644\u064a\u0644"
+    },
+    "pesticide_name": {
+      "type": "string",
+      "description": "\u0627\u0633\u0645 \u0627\u0644\u0645\u0628\u064a\u062f \u0623\u0648 \u0627\u0644\u0645\u0627\u062f\u0629 \u0627\u0644\u0641\u0639\u0627\u0644\u0629"
+    },
+    "analysis_result": {
+      "type": "string",
+      "description": "\u0646\u062a\u064a\u062c\u0629 \u0627\u0644\u062a\u062d\u0644\u064a\u0644"
+    },
+    "analysis_unit": {
+      "type": "string",
+      "description": "\u0648\u062d\u062f\u0629 \u0627\u0644\u0642\u064a\u0627\u0633"
+    },
+    "attachments": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "\u0645\u0631\u0641\u0642\u0627\u062a \u062a\u0642\u0627\u0631\u064a\u0631 \u0627\u0644\u062a\u062d\u0644\u064a\u0644 (file_uri)"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "\u0637\u0644\u0628 \u062c\u062f\u064a\u062f",
+        "\u062a\u062d\u062a \u0627\u0644\u0645\u0631\u0627\u062c\u0639\u0629",
+        "\u0628\u0627\u0646\u062a\u0638\u0627\u0631 \u0627\u0633\u062a\u0643\u0645\u0627\u0644 \u0627\u0644\u0628\u064a\u0627\u0646\u0627\u062a",
+        "\u0628\u0627\u0646\u062a\u0638\u0627\u0631 \u0627\u0644\u0641\u062d\u0635 \u0623\u0648 \u0627\u0644\u062a\u0642\u064a\u064a\u0645 \u0627\u0644\u0641\u0646\u064a",
+        "\u0645\u062c\u062f\u0648\u0644 \u0644\u0644\u0645\u0639\u0627\u0644\u062c\u0629",
+        "\u0642\u064a\u062f \u0627\u0644\u0645\u0639\u0627\u0644\u062c\u0629",
+        "\u0628\u0627\u0646\u062a\u0638\u0627\u0631 \u0646\u062a\u0627\u0626\u062c \u0627\u0644\u0641\u062d\u0635 \u0628\u0639\u062f \u0627\u0644\u0645\u0639\u0627\u0644\u062c\u0629",
+        "\u0645\u0643\u062a\u0645\u0644",
+        "\u0645\u0631\u0641\u0648\u0636"
+      ],
+      "default": "\u0637\u0644\u0628 \u062c\u062f\u064a\u062f"
+    },
+    "rejection_reason": {
+      "type": "string",
+      "description": "\u0633\u0628\u0628 \u0627\u0644\u0631\u0641\u0636"
+    },
+    "assigned_lab": {
+      "type": "string",
+      "description": "\u0627\u0644\u0645\u062e\u062a\u0628\u0631 \u0623\u0648 \u0627\u0644\u062c\u0647\u0629 \u0627\u0644\u062a\u0634\u063a\u064a\u0644\u064a\u0629 \u0627\u0644\u0645\u0639\u064a\u0646\u0629"
+    },
+    "test_result_documented": {
+      "type": "string",
+      "description": "\u0646\u062a\u064a\u062c\u0629 \u0627\u0644\u0641\u062d\u0635 \u0627\u0644\u0645\u0648\u062b\u0642\u0629 \u0628\u0639\u062f \u0627\u0644\u0645\u0639\u0627\u0644\u062c\u0629"
+    },
+    "admin_notes": {
+      "type": "string",
+      "description": "\u0645\u0644\u0627\u062d\u0638\u0627\u062a \u0627\u0644\u0625\u062f\u0627\u0631\u0629"
+    },
+    "estimated_cost": {
+      "type": "number",
+      "description": "\u0627\u0644\u062a\u0643\u0644\u0641\u0629 \u0627\u0644\u062a\u0642\u062f\u064a\u0631\u064a\u0629 \u0628\u0627\u0644\u0631\u064a\u0627\u0644"
+    }
+  },
+  "required": [
+    "client_type",
+    "facility_name",
+    "applicant_name",
+    "phone",
+    "date_variety",
+    "quantity",
+    "consent"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "create": {
+      "created_by_id": "{{user.id}}"
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

@@ -1,29 +1,25 @@
 import { Toaster } from "@/components/ui/toaster"
 import { QueryClientProvider } from '@tanstack/react-query'
 import { queryClientInstance } from '@/lib/query-client'
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import PageNotFound from './lib/PageNotFound';
 import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import ScrollToTop from './components/ScrollToTop';
 import { AppProvider } from '@/lib/AppContext';
 // Add page imports here
-import VisitorLayout from '@/components/VisitorLayout';
-import OwnerLayout from '@/components/OwnerLayout';
+import ProtectedRoute from '@/components/ProtectedRoute';
+import AppLayout from '@/components/AppLayout';
 import Home from '@/pages/Home';
-import ExploreFarms from '@/pages/ExploreFarms';
-import Experiences from '@/pages/Experiences';
-import AIFinder from '@/pages/AIFinder';
-import FarmDetails from '@/pages/FarmDetails';
-import Booking from '@/pages/Booking';
-import MyJourney from '@/pages/MyJourney';
-import Rewards from '@/pages/Rewards';
-import OwnerDashboard from '@/pages/owner/OwnerDashboard';
-import OwnerServices from '@/pages/owner/OwnerServices';
-import OwnerOrders from '@/pages/owner/OwnerOrders';
-import OwnerAnalytics from '@/pages/owner/OwnerAnalytics';
-import OwnerInsights from '@/pages/owner/OwnerInsights';
-import AdminDashboard from '@/pages/AdminDashboard';
+import Login from '@/pages/Login';
+import Register from '@/pages/Register';
+import ForgotPassword from '@/pages/ForgotPassword';
+import ResetPassword from '@/pages/ResetPassword';
+import Dashboard from '@/pages/Dashboard';
+import ProcessingRequest from '@/pages/ProcessingRequest';
+import WasteService from '@/pages/WasteService';
+import Assistant from '@/pages/Assistant';
+import AdminPanel from '@/pages/AdminPanel';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -48,30 +44,20 @@ const AuthenticatedApp = () => {
   return (
     <AppProvider>
       <Routes>
-        {/* Visitor */}
-        <Route element={<VisitorLayout />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/explore" element={<ExploreFarms />} />
-          <Route path="/experiences" element={<Experiences />} />
-          <Route path="/ai-finder" element={<AIFinder />} />
-          <Route path="/farms/:id" element={<FarmDetails />} />
-          <Route path="/book/:id" element={<Booking />} />
-          <Route path="/journey" element={<MyJourney />} />
-          <Route path="/rewards" element={<Rewards />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route element={<ProtectedRoute unauthenticatedElement={<Navigate to="/login" replace />} />}>
+          <Route element={<AppLayout />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/request-processing" element={<ProcessingRequest />} />
+            <Route path="/waste" element={<WasteService />} />
+            <Route path="/assistant" element={<Assistant />} />
+            <Route path="/admin" element={<AdminPanel />} />
+          </Route>
         </Route>
-
-        {/* Farm owner */}
-        <Route element={<OwnerLayout />}>
-          <Route path="/owner" element={<OwnerDashboard />} />
-          <Route path="/owner/services" element={<OwnerServices />} />
-          <Route path="/owner/orders" element={<OwnerOrders />} />
-          <Route path="/owner/analytics" element={<OwnerAnalytics />} />
-          <Route path="/owner/insights" element={<OwnerInsights />} />
-        </Route>
-
-        {/* Admin */}
-        <Route path="/admin" element={<AdminDashboard />} />
-
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </AppProvider>
