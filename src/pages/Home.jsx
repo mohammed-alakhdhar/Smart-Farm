@@ -52,7 +52,7 @@ export default function Home() {
           <div className="absolute inset-0 hero-overlay" />
         </div>
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6 py-20 sm:py-28 text-center">
-          <h1 className="font-heading text-3xl sm:text-5xl font-extrabold text-white leading-tight text-balance drop-shadow">نحو تمور أكثر جودة وفرص تسويق أوسع</h1>
+          <h1 className="font-heading text-3xl sm:text-5xl font-extrabold text-white leading-tight text-balance drop-shadow">نحو تمور أكثر جودة وفرص تصدير أوسع</h1>
           <p className="mt-5 text-lg sm:text-xl text-white/90 leading-relaxed max-w-2xl mx-auto">نربط المزارعين ومصانع التمور بحلول ذكية لمعالجة التحديات، وتحسين الجودة، والاستفادة من الموارد الزراعية</p>
         </div>
       </section>
